@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TESTE POUCHDB</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css">
+</head>
+<body>
+<nav class="navbar is-primary ">
+    <div class="navbar-brand ">
+        <h1 class="navbar-item" >Teste PouchDB</h1>
+    </div>
+</nav>
+
+<div class="container is-fluid">
+    <div class="notification">
+    <div class="field">
+        <label class="label">Nome</label>
+        <div class="control">
+            <input class="input" type="text" placeholder="John doe">
+        </div>
+    </div>
+    <div class="field">
+        <label class="label">E-mail</label>
+        <div class="control">
+            <input class="input" type="email" placeholder="john@exemplo.com">
+        </div>
+    </div>
+    <div class="field">
+        <label class="label">Idade</label>
+        <div class="control">
+            <input class="input" type="number" placeholder="25">
+        </div>
+    </div>
+    <p class="field">
+
+        <a class="button is-medium is-primary is-right" onclick="sendform()">
+            <span class="icon">
+                <i class="fa fa-send"></i>
+            </span>
+            <span>Enviar</span>
+        </a>
+    </p>
+    </div>
+</div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pouchdb/6.3.4/pouchdb.min.js"></script>
+<script>
+    const db = new PouchDB('testeDB', { adapter: 'websql' });
+     window.PouchDB = db 
+    db.post({
+        title: 'Ziggy Stardust'
+    }).then(function (response) {
+        console.log(response)
+    }).catch(function (err) {
+        console.log(err);
+    });
+    const sendform = () =>{
+        alert(1)
+    }
+</script>
+</html>
