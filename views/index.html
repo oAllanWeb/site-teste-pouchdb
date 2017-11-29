@@ -19,20 +19,26 @@
     <div class="field">
         <label class="label">Nome</label>
         <div class="control">
-            <input class="input" type="text" placeholder="John doe">
+            <input class="input" id="id" type="hidden">
+            <input class="input" id="nome" type="text" placeholder="John doe">
         </div>
     </div>
     <div class="field">
         <label class="label">E-mail</label>
         <div class="control">
-            <input class="input" type="email" placeholder="john@exemplo.com">
+            <input class="input" id="email" type="email" placeholder="john@exemplo.com">
         </div>
     </div>
     <div class="field">
         <label class="label">Idade</label>
         <div class="control">
-            <input class="input" type="number" placeholder="25">
+            <input class="input" id="idade" type="number" placeholder="25">
         </div>
+    </div>
+
+
+    <div id="msg" class="notification is-invisible">
+        
     </div>
     <p class="field">
 
@@ -40,25 +46,52 @@
             <span class="icon">
                 <i class="fa fa-send"></i>
             </span>
+            
             <span>Enviar</span>
         </a>
     </p>
     </div>
+    <div class="notification" id="tabela-pessoa">
+        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th>Idade</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><div class="buttons has-addons is-centered">
+                        <a class="button is-info"><i class="fa fa-edit"></i></a>
+                        <a class="button is-danger"><i class="fa fa-trash"></i></span>
+                    </div></td>
+                    <td>Allan da Silva</td>
+                    <td>allanweb019@gmail.com</td>
+                    <td>24</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
+
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pouchdb/6.3.4/pouchdb.min.js"></script>
 <script>
     const db = new PouchDB('testeDB', { adapter: 'websql' });
      window.PouchDB = db 
-    db.post({
-        title: 'Ziggy Stardust'
-    }).then(function (response) {
-        console.log(response)
-    }).catch(function (err) {
-        console.log(err);
-    });
-    const sendform = () =>{
-        alert(1)
+    const id = document.getElementById('id')
+    const nome = document.getElementById('nome')
+    const email = document.getElementById('email')
+    const idade = document.getElementById('idade')
+    const msg = document.getElementById('msg')
+
+    const sendform = () => {
+        
+        
     }
+
+
 </script>
 </html>
