@@ -77,20 +77,74 @@
 </div>
 
 </body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pouchdb/6.3.4/pouchdb.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/pouchdb@6.3.4/dist/pouchdb.min.js"></script>
 <script>
-    const db = new PouchDB('testeDB', { adapter: 'websql' });
+    
+    const db = new PouchDB('testeDB');
+    const cloudant = new PouchDB('https://allanweb.cloudant.com/testepouch', { adapter: 'https' }); 
      window.PouchDB = db 
-    const id = document.getElementById('id')
-    const nome = document.getElementById('nome')
-    const email = document.getElementById('email')
-    const idade = document.getElementById('idade')
-    const msg = document.getElementById('msg')
+
+   
 
     const sendform = () => {
+       
         
+        salvaPessoa().then(function (result) {
+            console.log(result)
+        })
         
     }
+
+    const salvaPessoa = () =>{
+        debugger
+        let id = document.getElementById('id').value
+        let nome = document.getElementById('nome').value
+        let email = document.getElementById('email').value
+        let idade = document.getElementById('idade').value
+        let msg = document.getElementById('msg').value
+
+        if (id != "") {
+            return db.put({
+                id: id,
+                nome: nome,
+                email: email,
+                idade: idade
+            }).then(function (response) {
+                return lista()
+            }).catch(function (err) {
+                return err
+            });
+        }
+        return db.post({
+            nome: nome,
+            email: email,
+            idade: idade
+        }).then(function (response) {
+            
+            return lista()
+        }).catch(function (err) {
+            return err
+        });
+    } 
+
+
+    const lista = () => {
+        db.sync(cloudant, {
+            live: true,
+            retry: true
+        });
+
+        return db.allDocs({
+            include_docs: true,
+            attachments: true
+        }).then(function (result) {
+            
+            return result
+        }).catch(function (err) {
+            return err
+        });
+    }
+
 
 
 </script>
